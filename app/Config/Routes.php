@@ -35,21 +35,23 @@ $routes->get('/', function () {
     $data = [
         'title' => 'Blog - Home'
     ];
-    echo view('layout/header', $data);
-    echo view('layout/navbar');
+    echo view('layouts/header', $data);
+    echo view('layouts/navbar');
     echo view('v_home');
-    echo view('layout/footer');
+    echo view('layouts/footer');
 });
 $routes->get('/posts', 'PostController::index');
 $routes->get('/about', function () {
     $data = [
         'title' => 'Blog - About'
     ];
-    echo view('layout/header', $data);
-    echo view('layout/navbar');
+    echo view('layouts/header', $data);
+    echo view('layouts/navbar');
     echo view('v_about');
-    echo view('layout/footer');
+    echo view('layouts/footer');
 });
+
+$routes->get('/admin', 'Templating::index');
 
 /*
  * --------------------------------------------------------------------
