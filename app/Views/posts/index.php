@@ -216,9 +216,12 @@
                 </div><!-- /.container-fluid -->
             </div>
             <!-- /.content-header -->
-            <!-- Bakal diubah -->
-            </section>
-            <!-- /.content -->
+
+            <!-- Main Content -->
+            <div class="container">
+                <a href="/admin/posts/create" class="btn btn-primary"><i class="fas fa-plus"></i> Tambah Data</a>
+            </div>
+            <!-- Main Content -->
         </div>
         <!-- /.content-wrapper -->
         <footer class="main-footer">
