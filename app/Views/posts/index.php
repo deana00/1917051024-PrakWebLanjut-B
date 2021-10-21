@@ -3,7 +3,6 @@
 <?= $this->section('content'); ?>
 
 <body class="hold-transition sidebar-mini layout-fixed">
-
     <div class="wrapper">
 
         <!-- Preloader -->
@@ -154,7 +153,7 @@
             <!-- Brand Logo -->
             <a href="index3.html" class="brand-link">
                 <img src="/assets/adminlte/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">Blog App</span>
+                <span class="brand-text font-weight-light">AdminLTE 3</span>
             </a>
 
             <!-- Sidebar -->
@@ -165,7 +164,7 @@
                         <img src="/assets/adminlte/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Ardella Dean</a>
+                        <a href="#" class="d-block">Alexander Piero</a>
                     </div>
                 </div>
 
@@ -174,7 +173,7 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-                        <li class="nav-item">
+                        <li>
                             <a href="/admin" class="nav-link">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
@@ -182,7 +181,7 @@
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li>
                             <a href="/admin/posts" class="nav-link">
                                 <i class="nav-icon fas fa-book-open"></i>
                                 <p>
@@ -204,7 +203,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Dashboard</h1>
+                            <h1 class="m-0">My Posts</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -216,20 +215,49 @@
                 </div><!-- /.container-fluid -->
             </div>
             <!-- /.content-header -->
-
             <!-- Main Content -->
             <div class="container">
                 <a href="/admin/posts/create" class="btn btn-primary"><i class="fas fa-plus"></i> Tambah Data</a>
             </div>
-            <!-- Main Content -->
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped text-center">
+                        <thead>
+                            <tr>
+                                <th scope="col">No</th>
+                                <th scope="col">Judul</th>
+                                <th scope="col">slug</th>
+                                <th scope="col">Author</th>
+                                <th scope="col">Kategori</th>
+                                <th scope="col">action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($post as $i => $post) : ?>
+                                <tr>
+                                    <th scope="row"><?= $i + 1; ?></th>
+                                    <td><?= $post['judul']; ?></td>
+                                    <td><?= $post['slug']; ?></td>
+                                    <td><?= $post['author']; ?></td>
+                                    <td><?= $post['kategori']; ?></td>
+                                    <td>
+                                        <a href="/posts/edit/<?= $post['slug']; ?>" class="btn btn-sm btn-warning me-1"><i class="fas fa-edit"> Edit</i></a>
+                                        <a href="/posts/delete/<?= $post['slug']; ?>" class="btn btn-sm btn-danger"><i class="fas fa-trash"> Delete</i></a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!--bakal dirubah -->
+            </section>
+
+            <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
         <footer class="main-footer">
-            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
-            All rights reserved.
-            <div class="float-right d-none d-sm-inline-block">
-                <b>Version</b> 3.1.0
-            </div>
+            <strong>Copyright &copy; Praktikum Web Lanjut
         </footer>
 
         <!-- Control Sidebar -->
@@ -239,5 +267,5 @@
         <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
-</body>
-<?= $this->endSection(); ?>
+
+    <?= $this->endSection(); ?>

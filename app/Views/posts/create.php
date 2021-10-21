@@ -1,10 +1,9 @@
 <?= $this->extend('template'); ?>
-
 <?= $this->section('content'); ?>
 
-<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
 
-    <div class="wrapper">
+    <body class="hold-transition sidebar-mini layout-fixed">
 
         <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center">
@@ -154,7 +153,7 @@
             <!-- Brand Logo -->
             <a href="index3.html" class="brand-link">
                 <img src="/assets/adminlte/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">Blog App</span>
+                <span class="brand-text font-weight-light">AdminLTE 3</span>
             </a>
 
             <!-- Sidebar -->
@@ -165,25 +164,35 @@
                         <img src="/assets/adminlte/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Ardella Dean</a>
+                        <a href="#" class="d-block">Alexander Pierce</a>
+                    </div>
+                </div>
+
+                <!-- SidebarSearch Form -->
+                <div class="form-inline">
+                    <div class="input-group" data-widget="sidebar-search">
+                        <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+                        <div class="input-group-append">
+                            <button class="btn btn-sidebar">
+                                <i class="fas fa-search fa-fw"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-                        <li class="nav-item">
-                            <a href="/admin" class="nav-link">
+                        <li class="nav-item menu-open">
+                            <a href="/admin" class="nav-link active">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Dashboard
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="/admin/posts" class="nav-link">
+                        <li class="nav-item ">
+                            <a href="/admin/posts" class="nav-link ">
                                 <i class="nav-icon fas fa-book-open"></i>
                                 <p>
                                     My Posts
@@ -204,7 +213,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Dashboard</h1>
+                            <h1 class="m-0">My Posts</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -218,67 +227,97 @@
             <!-- /.content-header -->
 
             <!-- Main Content -->
-            <div class="container">
+            <section class="content">
                 <div class="card">
                     <div class="card-header">
                         Form Tambah Posts
                     </div>
                     <div class="card-body">
-                        <form action="/admin/posts/store" method="post">
+                        <form action="/admin/posts/store" method="POST">
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="judul">Judul Postingan</label>
-                                        <input type="text" class="form-control" id="judul" name="judul">
+                                        <input type="text" class="form-control <?= ($validation->hasError('judul')) ? 'is-invalid' : ''; ?> " id="judul" name="judul" value="<?= old('judul'); ?>">
+                                        <?php if ($validation->hasError('judul')) : ?>
+                                            <div class="invalid-feedback">
+                                                <?= $validation->getError('judul'); ?>
+                                            </div>
+                                        <?php endif; ?>
                                     </div>
                                     <div class="form-group">
-                                        <label for="slug">slug</label>
-                                        <input type="text" class="form-control" id="slug" name="slug">
+                                        <label for="slug">Slug</label>
+                                        <input type="text" class="form-control <?= ($validation->hasError('slug')) ? 'is-invalid' : ''; ?> " id="slug" name="slug" value="<?= old('slug'); ?>">
+                                        <?php if ($validation->hasError('slug')) : ?>
+                                            <div class="invalid-feedback">
+                                                <?= $validation->getError('slug'); ?>
+                                            </div>
+                                        <?php endif; ?>
                                     </div>
                                     <div class="form-group">
                                         <label for="kategori">Kategori Postingan</label>
-                                        <input type="text" class="form-control" id="kategori" name="kategori">
+                                        <input type="text" class="form-control <?= ($validation->hasError('kategori')) ? 'is-invalid' : ''; ?>" id="kategori" name="kategori" value="<?= old('kategori'); ?>">
+                                        <?php if ($validation->hasError('kategori')) : ?>
+                                            <div class="invalid-feedback">
+                                                <?= $validation->getError('kategori'); ?>
+                                            </div>
+                                        <?php endif; ?>
                                     </div>
                                     <div class="form-group">
                                         <label for="author">Author</label>
-                                        <input type="text" class="form-control" id="author" name="author">
+                                        <input type="text" class="form-control <?= ($validation->hasError('author')) ? 'is-invalid' : ''; ?>" id="author" name="author" value="<?= old('author'); ?>">
+                                        <?php if ($validation->hasError('deskripsi')) : ?>
+                                            <div class="invalid-feedback">
+                                                <?= $validation->getError('author'); ?>
+                                            </div>
+                                        <?php endif; ?>
                                     </div>
-                                    <button type="submit" class="btn btn-primary">Submit
-                                        <i class="fas fa-paper-plane"></i>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-paper-plane"></i> Submit
                                     </button>
                                 </div>
                                 <div class="col-md-8">
                                     <label for="deskripsi">Deskripsi Postingan</label>
                                     <br>
-                                    <textarea name="deskripsi" id="deskripsi"></textarea>
+                                    <textarea name="deskripsi" id="deskripsi" class="form-control <?= ($validation->hasError('author')) ? 'is-invalid' : ''; ?>" value="<?= old('deskripsi'); ?>"></textarea>
+                                    <?php if ($validation->hasError('deskripsi')) : ?>
+                                        <div class="invalid-feedback">
+                                            <?= $validation->getError('deskripsi'); ?>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
-            </div>
-            <!-- Main Content -->
         </div>
-        <!-- /.content-wrapper -->
-        <footer class="main-footer">
-            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
-            All rights reserved.
-            <div class="float-right d-none d-sm-inline-block">
-                <b>Version</b> 3.1.0
-            </div>
-        </footer>
-
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
+</div>
+<!-- Main Content -->
+<!-- bakal diubah -->
+</section>
+<!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+<footer class="main-footer">
+    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+    All rights reserved.
+    <div class="float-right d-none d-sm-inline-block">
+        <b>Version</b> 3.1.0
     </div>
-    <!-- ./wrapper -->
+</footer>
+
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+</aside>
+<!-- /.control-sidebar -->
 </body>
+</div>
+<!-- ./wrapper -->
+
 <?= $this->endSection(); ?>
 
-<?= $this->section('myscript'); ?>
+<?php $this->section('myscript'); ?>
 <script>
     $('#deskripsi').summernote()
 </script>
