@@ -1,9 +1,9 @@
 <?= $this->extend('template'); ?>
-
 <?= $this->section('content'); ?>
 
-<body class="hold-transition sidebar-mini layout-fixed">
-    <div class="wrapper">
+<div class="wrapper">
+
+    <body class="hold-transition sidebar-mini layout-fixed">
 
         <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center">
@@ -164,25 +164,35 @@
                         <img src="/assets/adminlte/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Alexander Piero</a>
+                        <a href="#" class="d-block">Alexander Pierce</a>
+                    </div>
+                </div>
+
+                <!-- SidebarSearch Form -->
+                <div class="form-inline">
+                    <div class="input-group" data-widget="sidebar-search">
+                        <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+                        <div class="input-group-append">
+                            <button class="btn btn-sidebar">
+                                <i class="fas fa-search fa-fw"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-                        <li>
-                            <a href="/admin" class="nav-link">
+                        <li class="nav-item menu-open">
+                            <a href="/admin" class="nav-link active">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Dashboard
                                 </p>
                             </a>
                         </li>
-                        <li>
-                            <a href="/admin/posts" class="nav-link">
+                        <li class="nav-item ">
+                            <a href="/admin/posts" class="nav-link ">
                                 <i class="nav-icon fas fa-book-open"></i>
                                 <p>
                                     My Posts
@@ -215,61 +225,100 @@
                 </div><!-- /.container-fluid -->
             </div>
             <!-- /.content-header -->
+
             <!-- Main Content -->
-            <div class="container">
-                <a href="/admin/posts/create" class="btn btn-primary"><i class="fas fa-plus"></i> Tambah Data</a>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-striped text-center">
-                        <thead>
-                            <tr>
-                                <th scope="col">No</th>
-                                <th scope="col">Judul</th>
-                                <th scope="col">slug</th>
-                                <th scope="col">Author</th>
-                                <th scope="col">Kategori</th>
-                                <th scope="col">action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($post as $i => $post) : ?>
-                                <tr>
-                                    <th scope="row"><?= $i + 1; ?></th>
-                                    <td><?= $post['judul']; ?></td>
-                                    <td><?= $post['slug']; ?></td>
-                                    <td><?= $post['author']; ?></td>
-                                    <td><?= $post['kategori']; ?></td>
-                                    <td>
-                                        <a href="/admin/posts/edit/<?= $post['post_id']; ?>" class="btn btn-sm btn-warning me-1"><i class="fas fa-edit"> Edit</i></a>
-                                        <form action="/admin/posts/ <?= $post['post_id']; ?>" method="post" class="d-inline">
-                                            <?= csrf_field(); ?>
-                                            <input type="hidden" name="_method" value="DELETE">
-                                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure want to delete this post?');"><i class="fas fa-trash"> Delete</i></button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+            <section class="content">
+                <div class="card">
+                    <div class="card-header">
+                        Form Ubah Posts
+                    </div>
+                    <div class="card-body">
+                        <form action="/admin/posts/update/<?= $post['post_id']; ?>" method="POST">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="judul">Judul Postingan</label>
+                                        <input type="text" class="form-control <?= ($validation->hasError('judul')) ? 'is-invalid' : ''; ?> " id="judul" name="judul" value="<?= (old('judul')) ? old('judul') : $post['judul']; ?>">
+                                        <?php if ($validation->hasError('judul')) : ?>
+                                            <div class="invalid-feedback">
+                                                <?= $validation->getError('judul'); ?>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="slug">Slug</label>
+                                        <input type="text" class="form-control <?= ($validation->hasError('slug')) ? 'is-invalid' : ''; ?> " id="slug" name="slug" value="<?= (old('slug')) ? old('slug') : $post['slug']; ?>">
+                                        <?php if ($validation->hasError('slug')) : ?>
+                                            <div class="invalid-feedback">
+                                                <?= $validation->getError('slug'); ?>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="kategori">Kategori Postingan</label>
+                                        <input type="text" class="form-control <?= ($validation->hasError('kategori')) ? 'is-invalid' : ''; ?>" id="kategori" name="kategori" value="<?= (old('kategori')) ? old('kategori') : $post['kategori']; ?>">
+                                        <?php if ($validation->hasError('kategori')) : ?>
+                                            <div class="invalid-feedback">
+                                                <?= $validation->getError('kategori'); ?>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="author">Author</label>
+                                        <input type="text" class="form-control <?= ($validation->hasError('author')) ? 'is-invalid' : ''; ?>" id="author" name="author" value="<?= (old('author')) ? old('author') : $post['author']; ?>">
+                                        <?php if ($validation->hasError('deskripsi')) : ?>
+                                            <div class="invalid-feedback">
+                                                <?= $validation->getError('author'); ?>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-paper-plane"></i> Submit
+                                    </button>
+                                </div>
+                                <div class="col-md-8">
+                                    <label for="deskripsi">Deskripsi Postingan</label>
+                                    <br>
+                                    <textarea name="deskripsi" id="deskripsi" class="form-control <?= ($validation->hasError('author')) ? 'is-invalid' : ''; ?>" value="<?= (old('deskripsi')) ? old('deskripsi') : $post['deskripsi']; ?>"></textarea>
+                                    <?php if ($validation->hasError('deskripsi')) : ?>
+                                        <div class="invalid-feedback">
+                                            <?= $validation->getError('deskripsi'); ?>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </div>
-            <!--bakal dirubah -->
-            </section>
-
-            <!-- /.content -->
         </div>
-        <!-- /.content-wrapper -->
-        <footer class="main-footer">
-            <strong>Copyright &copy; Praktikum Web Lanjut
-        </footer>
-
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
+</div>
+<!-- Main Content -->
+<!-- bakal diubah -->
+</section>
+<!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+<footer class="main-footer">
+    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+    All rights reserved.
+    <div class="float-right d-none d-sm-inline-block">
+        <b>Version</b> 3.1.0
     </div>
-    <!-- ./wrapper -->
+</footer>
 
-    <?= $this->endSection(); ?>
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+</aside>
+<!-- /.control-sidebar -->
+</body>
+</div>
+<!-- ./wrapper -->
+
+<?= $this->endSection(); ?>
+
+<?php $this->section('myscript'); ?>
+<script>
+    $('#deskripsi').summernote()
+</script>
+<?= $this->endSection(); ?>

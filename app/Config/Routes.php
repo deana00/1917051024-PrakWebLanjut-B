@@ -2,6 +2,9 @@
 
 namespace Config;
 
+use App\Controllers\AdminPostsController;
+use CodeIgniter\Commands\Utilities\Routes;
+
 // Create a new instance of our RouteCollection class.
 $routes = Services::routes();
 
@@ -52,9 +55,14 @@ $routes->get('/about', function () {
 });
 
 $routes->get('/admin', 'Templating::index');
+
 $routes->get('/admin/posts', 'AdminPostsController::index');
 $routes->get('/admin/posts/create', 'AdminPostsController::create');
 $routes->post('/admin/posts/store', 'AdminPostsController::store');
+$routes->delete('/admin/posts/(:segment)', 'AdminPostsController::delete/$1');
+$routes->get('/admin/posts/edit/(:segment)', 'AdminPostsController::edit/$1');
+$routes->post('/admin/posts/update/(:segment)', 'AdminPostsController::update/$1');
+
 $routes->get('/register', 'Templating::register');
 $routes->post('/saveRegister', 'Templating::saveRegister');
 

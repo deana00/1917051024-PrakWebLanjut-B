@@ -46,3 +46,4 @@ class Templating extends BaseController
         return redirect()->to('register');
     }
 }
+ 
